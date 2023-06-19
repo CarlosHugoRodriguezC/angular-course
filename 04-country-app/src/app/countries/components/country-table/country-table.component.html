@@ -1,0 +1,50 @@
+<div
+  class="alert alert-warning text-center"
+  *ngIf="countries.length === 0; else table"
+>
+  {{ "no data to show" | titlecase }}
+</div>
+
+<ng-template #table>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Flag</th>
+        <th>Name</th>
+        <th>Capital</th>
+        <th>Population</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of countries; let i = index">
+        <td>
+          <span>{{ i + 1 }}</span>
+        </td>
+        <td>
+          <img
+            [src]="country.flags.svg"
+            alt="{{ country.flags.alt }}"
+            style="width: 50px"
+          />
+        </td>
+        <td>
+          <a [routerLink]="['/countries/by/', country.cca3]">
+            {{ country.name.common }}
+          </a>
+        </td>
+        <td>
+          <span>{{ country.capital }}</span>
+        </td>
+
+        <td>
+          <span>{{ country.population | number }}</span>
+        </td>
+        <td>
+          <a [routerLink]="['/countries/by/', country.cca3]">ver mas</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
