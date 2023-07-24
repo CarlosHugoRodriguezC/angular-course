@@ -1,0 +1,25 @@
+<h2>Pages</h2>
+<hr />
+<h3>Reactive</h3>
+<ul class="list-group">
+  <li
+    class="list-group-item cursor-pointer"
+    *ngFor="let menuItem of reactiveMenu"
+    [routerLink]="[menuItem.route]"
+    routerLinkActive="active"
+  >
+    <a>{{ menuItem.title }}</a>
+  </li>
+</ul>
+
+<h3 class="mt-5">Auth</h3>
+<ul class="list-group">
+  <li
+    class="list-group-item cursor-pointer"
+    *ngFor="let menuItem of authMenu"
+    [routerLink]="[menuItem.route]"
+    routerLinkActive="active"
+  >
+    <a>{{ menuItem.title }}</a>
+  </li>
+</ul>
