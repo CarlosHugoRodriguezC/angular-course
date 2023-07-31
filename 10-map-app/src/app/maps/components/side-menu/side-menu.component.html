@@ -1,0 +1,12 @@
+<ul
+  class="flex flex-col gap-3 p-2 bg-white outline outline-8 outline-gray-100 rounded-xl"
+>
+  <li
+    class="menu-item"
+    *ngFor="let menuItem of menuItems"
+    [routerLink]="menuItem.route"
+    routerLinkActive="active"
+  >
+    {{ menuItem.label }}
+  </li>
+</ul>
