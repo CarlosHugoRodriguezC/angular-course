@@ -13,8 +13,8 @@ interface MenuItem {
 export class SideMenuComponent {
   public menuItems: MenuItem[] = [
     { label: 'Full Screen', route: '/maps/full-screen' },
-    { label: 'Markers', route: '/maps/markers' },
     { label: 'Zoom Range', route: '/maps/zoom-range' },
+    { label: 'Markers', route: '/maps/markers' },
     { label: 'Propiedades', route: '/maps/properties' },
   ];
 }

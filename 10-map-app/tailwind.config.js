@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        height: "height",
+        width: "width",
+        spacing: "margin, padding",
+      },
+    },
   },
   plugins: [],
-}
-
+};

@@ -1,1 +1,23 @@
-<p>markers-page works!</p>
+<div #map class="w-screen h-screen"></div>
+
+<ul class="absolute top-10 right-10 flex flex-col gap-2">
+  <li
+    class="bg-white px-5 py-2 rounded-xl border-4 cursor-pointer"
+    *ngFor="let colorMarker of markers; let i = index"
+    [ngStyle]="{
+      borderColor: colorMarker.color,
+    }"
+    (click)="goMarker(colorMarker.marker)"
+    (dblclick)="removeMarker(i)"
+  >
+    Marker {{ i + 1 }}
+  </li>
+</ul>
+
+<button
+  title="Add marker"
+  (click)="createMarker()"
+  class="absolute bottom-10 right-10 bg-blue-500 text-white rounded-xl p-2 flex items-center justify-center"
+>
+  <span class="material-icons">add</span>
+</button>
