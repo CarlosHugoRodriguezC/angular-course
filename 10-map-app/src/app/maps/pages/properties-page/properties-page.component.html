@@ -1,1 +1,24 @@
-<p>properties-page works!</p>
+<div class="flex">
+  <div class="w-[18rem]"></div>
+  <div class="mt-5 flex-1 p-5">
+    <h1 class="text-4xl">Listado</h1>
+    <hr class="my-2" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="col-auto" *ngFor="let house of houses">
+        <div
+          class="border rounded-xl overflow-hidden border-gray-200 flex flex-col h-full"
+        >
+          <!-- <img src="https://via.placeholder.com/500" alt="" class="w-full" /> -->
+          <maps-mini-map class="flex-1" [lngLat]="house.lngLat"></maps-mini-map>
+          <div class="p-2 flex-1 flex flex-col justify-between">
+            <div class="flex-1">
+              <h2 class="text-xl mb-3 flex-1">{{ house.title }}</h2>
+              <p class="text-gray-500 mb-3">{{ house.description }}</p>
+            </div>
+            <p class="text-gray-500">Precio: {{ 1000000 | currency }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
