@@ -1,0 +1,17 @@
+<div
+  class="inline-flex gap-3 p-2 outline outline-4 rounded-full outline-gray-200"
+>
+  <button
+    class="flex items-center justify-center p-2 text-white transition-all duration-700 ease-in-out bg-gray-400 rounded-full hover:bg-opacity-80"
+    (click)="counter = counter - 1"
+  >
+    <span class="material-icons">remove</span>
+  </button>
+  <span class="text-2xl w-8">{{ counter }}</span>
+  <button
+    class="flex items-center justify-center p-2 text-white transition-all duration-700 ease-in-out bg-blue-500 rounded-full hover:bg-opacity-80"
+    (click)="counter = counter + 1"
+  >
+    <span class="material-icons">add</span>
+  </button>
+</div>
