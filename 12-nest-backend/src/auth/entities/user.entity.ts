@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
 export class User {
-  // _id: string;
+  _id?: string;
 
   @Prop({ unique: true, required: true })
   email: string;
@@ -11,7 +11,7 @@ export class User {
   name: string;
 
   @Prop({ required: true, minlength: 6 })
-  password: string;
+  password?: string;
 
   @Prop({ default: true })
   isActive: boolean;
@@ -20,4 +20,16 @@ export class User {
   roles: string[];
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+const UserSchema = SchemaFactory.createForClass(User);
+
+//omit password when return user
+UserSchema.methods.toJSON = function () {
+  const userObject = this.toObject();
+
+  delete userObject.password;
+  delete userObject.__v;
+
+  return userObject;
+};
+
+export { UserSchema };
