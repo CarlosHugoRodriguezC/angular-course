@@ -83,17 +83,17 @@ export class AuthService {
     return this.userModel.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const user = await this.userModel.findById(id);
 
     if (!user) {
       throw new BadRequestException('User not found');
     }
 
-    return user;
+    return user.toJSON();
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     const { ...userData } = updateUserDto;
 
     try {
@@ -106,7 +106,7 @@ export class AuthService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       await this.userModel.findByIdAndDelete(id);
       return {
