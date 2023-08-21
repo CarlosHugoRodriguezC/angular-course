@@ -26,12 +26,12 @@ export class LoginPageComponent {
         this._router.navigate(['/dashboard/']);
       },
       error: (err) => {
-        iziToast.show({
-          title: 'Error',
-          message: err,
-          color: 'red',
-        });
-        console.log({ err });
+        // iziToast.show({
+        //   title: 'Error',
+        //   message: err,
+        //   color: 'red',
+        // });
+        console.log( err );
       },
     });
   }

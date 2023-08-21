@@ -25,50 +25,54 @@ export class AuthService {
 
   constructor() {}
 
+  private _setAuthentication({ user, token }: LoginResponse): boolean {
+    console.log('_setAuthentication', { user, token });
+    console.log(this._currentUser);
+
+    this._currentUser.set(user);
+    this._authStatus.set(AuthStatus.Authenticated);
+    localStorage.setItem('token', token);
+
+    return true;
+  }
+
   public login(email: string, password: string): Observable<boolean> {
     const url = `${this._apiUrl}/auth/login`;
     const body = { email, password };
 
     return this._http.post<LoginResponse>(url, body).pipe(
-      tap(({ user, token }) => {
-        this._currentUser.set(user);
-        this._authStatus.set(AuthStatus.Authenticated);
-        localStorage.setItem('token', token);
-        console.log({ user, token });
-      }),
-      map((_) => {
-        return true;
-      }),
+      map((response) => this._setAuthentication(response)),
       catchError((err) => {
         this._authStatus.set(AuthStatus.NotAuthenticated);
-        return throwError(() => err.error.message);
+        return throwError(() => err.error);
       })
     );
   }
 
-  public logout(): void {}
+  public logout(): void {
+    this._currentUser.set(null);
+    this._authStatus.set(AuthStatus.NotAuthenticated);
+    localStorage.removeItem('token');
+  }
 
   public checkAuthStatus(): Observable<boolean> {
     const url = this._apiUrl + '/auth/check-token';
 
     const token = localStorage.getItem('token');
 
-    if (!token) return of(false);
+    if (!token) {
+      this.logout();
+      return of(false);
+    }
 
-    const headers = new HttpHeaders();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
 
-    headers.set('Authorization', `Bearer ${token}`);
+    console.log('checkAuthStatus', { url, headers, token });
 
     return this._http.get<CheckTokenResponse>(url, { headers }).pipe(
-      tap(({ user, token }) => {
-        this._currentUser.set(user);
-        this._authStatus.set(AuthStatus.Authenticated);
-        localStorage.setItem('token', token);
-        console.log({ user, token });
-      }),
-      map((_) => {
-        return true;
-      }),
+      map((response) => this._setAuthentication(response)),
       catchError((err) => {
         this._authStatus.set(AuthStatus.NotAuthenticated);
         return of(false);
